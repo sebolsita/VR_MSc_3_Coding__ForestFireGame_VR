@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
+
 
 public class MiniMap : MonoBehaviour
 {
@@ -21,12 +23,30 @@ public class MiniMap : MonoBehaviour
     private int onFireCount = 0;     // Count of cells that are on fire
     private int burnedCount = 0;     // Count of cells that are burned
 
+    public GameObject notBurningLabel; // Reference to the GameObject containing TextMeshPro components
+    public GameObject onFireLabel;
+    public GameObject burnedLabel;
+
     /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*/
 
 
     // Start is a built-in Unity function that is called before the first frame update
     private void Start()
     {
+        // Check if GameObjects are assigned
+        if (notBurningLabel == null)
+        {
+            Debug.LogError("notBurningLabel is not assigned.");
+        }
+        if (onFireLabel == null)
+        {
+            Debug.LogError("onFireLabel is not assigned.");
+        }
+        if (burnedLabel == null)
+        {
+            Debug.LogError("burnedLabel is not assigned.");
+        }
+
         CreateGrid(forestFire3D.gridSizeX, forestFire3D.gridSizeY);
         previousPlayerPosition = player.transform.position; // Initialize previousPlayerPosition to the player's initial position (to refresh only when player moves) [DEBUG] @seb
     }
@@ -49,7 +69,7 @@ public class MiniMap : MonoBehaviour
                 newCell.transform.localScale = new Vector3(0.035f, 0.035f, 0.035f);
 
                 // position the cell on the grid, spacing them out using the x and y count as coordinates with a small offset
-                newCell.transform.localPosition = new Vector3(xCount * 0.005f - (0.005f*20f), yCount * 0.005f + 0.005f, 0.0f); // offset the spawn position - minimap in the middle @seb
+                newCell.transform.localPosition = new Vector3(xCount * 0.005f - (0.005f*20f), yCount * 0.005f + 0.075f, 0.0f); // offset the spawn position - minimap in the middle @seb
 
                 // add a reference of this sprite renderer to the array so we can change it later quickly
                 cellSpriteRenderers[xCount, yCount] = newCell.GetComponent<SpriteRenderer>();
@@ -123,10 +143,34 @@ public class MiniMap : MonoBehaviour
         float onFirePercentage = (float)onFireCount / totalCells * 100f;
         float burnedPercentage = (float)burnedCount / totalCells * 100f;
 
-        // Output the percentages (you can use them as needed) @seb
-        Debug.Log("Not Burning: " + notBurningPercentage + "%");
-        Debug.Log("On Fire: " + onFirePercentage + "%");
-        Debug.Log("Burned: " + burnedPercentage + "%");
+        // Output the percentages @seb
+        /*        Debug.Log("Not Burning: " + notBurningPercentage + "%");
+                Debug.Log("On Fire: " + onFirePercentage + "%");
+                Debug.Log("Burned: " + burnedPercentage + "%");*/
+        Debug.Log("notBurningLabel: " + notBurningLabel);
+        Debug.Log("onFireLabel: " + onFireLabel);
+        Debug.Log("burnedLabel: " + burnedLabel);
+        Debug.Log("Not Burning Percentage: " + notBurningPercentage);
+        Debug.Log("On Fire Percentage: " + onFirePercentage);
+        Debug.Log("Burned Percentage: " + burnedPercentage);
+
+        // Check if the GameObjects are not null before accessing their TMP components
+        if (notBurningLabel != null && onFireLabel != null && burnedLabel != null)
+        {
+            // Access the TextMeshPro component within the GameObject @seb
+            TextMeshPro notBurningText = notBurningLabel.GetComponent<TextMeshPro>();
+            TextMeshPro onFireText = onFireLabel.GetComponent<TextMeshPro>();
+            TextMeshPro burnedText = burnedLabel.GetComponent<TextMeshPro>();
+
+            // Update the text content of the TMP labels with the calculated percentages @seb
+            notBurningText.text = notBurningPercentage.ToString("F0") + "%"; // "F0" formats the float to two decimal places
+            onFireText.text = onFirePercentage.ToString("F0") + "%";
+            burnedText.text = burnedPercentage.ToString("F0") + "%";
+        }
+        else
+        {
+            Debug.Log("Labels not found (NULL)");
+        }
 
         playerPosition(); // @seb
     }
