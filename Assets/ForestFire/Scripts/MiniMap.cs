@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
 public class MiniMap : MonoBehaviour
@@ -14,6 +16,10 @@ public class MiniMap : MonoBehaviour
 
     public GameObject player; // Reference to the player object @seb
     private Vector3 previousPlayerPosition; // [DEBUG] @seb
+
+    private int notBurningCount = 0; // Count of cells that are not burning
+    private int onFireCount = 0;     // Count of cells that are on fire
+    private int burnedCount = 0;     // Count of cells that are burned
 
     /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*/
 
@@ -54,6 +60,10 @@ public class MiniMap : MonoBehaviour
     // Update is a built-in Unity function that is called once per frame
     private void Update()
     {
+        // Reset the counts at the beginning of each frame @seb
+        notBurningCount = 0;
+        onFireCount = 0;
+        burnedCount = 0;
         // Go through every sprite in the mini-map grid and assign the color based on the state of each cell in the forest fire 3D script   
         for (int xCount = 0; xCount < forestFire3D.gridSizeX; xCount++)
         {
@@ -85,6 +95,39 @@ public class MiniMap : MonoBehaviour
                 }
             }
         }
+
+        // Go through every sprite in the mini-map grid and update counts @seb
+        for (int xCount = 0; xCount < forestFire3D.gridSizeX; xCount++)
+        {
+            for (int yCount = 0; yCount < forestFire3D.gridSizeY; yCount++)
+            {
+                // Update counts based on the state of each cell in the forest fire 3D script @seb   
+                if (forestFire3D.forestFireCells[xCount, yCount].cellState == ForestFireCell.State.Alight)
+                {
+                    onFireCount++;
+                }
+                else if (forestFire3D.forestFireCells[xCount, yCount].cellFuel <= 0) // Stones included @seb
+                {
+                    burnedCount++;
+                }
+                else
+                {
+                    notBurningCount++;
+                }
+            }
+        }
+
+        // Calculate percentages @seb
+        int totalCells = forestFire3D.gridSizeX * forestFire3D.gridSizeY;
+        float notBurningPercentage = (float)notBurningCount / totalCells * 100f;
+        float onFirePercentage = (float)onFireCount / totalCells * 100f;
+        float burnedPercentage = (float)burnedCount / totalCells * 100f;
+
+        // Output the percentages (you can use them as needed) @seb
+        Debug.Log("Not Burning: " + notBurningPercentage + "%");
+        Debug.Log("On Fire: " + onFirePercentage + "%");
+        Debug.Log("Burned: " + burnedPercentage + "%");
+
         playerPosition(); // @seb
     }
 
