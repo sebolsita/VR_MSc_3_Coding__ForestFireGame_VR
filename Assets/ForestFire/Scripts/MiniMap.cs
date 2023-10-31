@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MiniMap : MonoBehaviour
 {
@@ -11,16 +12,17 @@ public class MiniMap : MonoBehaviour
     public Transform spawnPosition; // initial spawn position
     public SpriteRenderer[,] cellSpriteRenderers = new SpriteRenderer[0, 0]; // an array to hold references to the sprite renderer component attached to each game object
 
-    public GameObject player; // Reference to the player object (you'll need to assign this in the inspector)
-    private Vector3 previousPlayerPosition; // [DEBUG]
+    public GameObject player; // Reference to the player object @seb
+    private Vector3 previousPlayerPosition; // [DEBUG] @seb
+
+    /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*/
+
 
     // Start is a built-in Unity function that is called before the first frame update
     private void Start()
     {
-        // spawnPosition.position = new Vector3(spawnPosition.position.x - 50f, spawnPosition.position.y, spawnPosition.position.z);
         CreateGrid(forestFire3D.gridSizeX, forestFire3D.gridSizeY);
-        // Initialize previousPlayerPosition to the player's initial position [DEBUG]
-        previousPlayerPosition = player.transform.position;
+        previousPlayerPosition = player.transform.position; // Initialize previousPlayerPosition to the player's initial position (to refresh only when player moves) [DEBUG] @seb
     }
 
     private void CreateGrid(int sizeX, int sizeY)
@@ -41,7 +43,7 @@ public class MiniMap : MonoBehaviour
                 newCell.transform.localScale = new Vector3(0.035f, 0.035f, 0.035f);
 
                 // position the cell on the grid, spacing them out using the x and y count as coordinates with a small offset
-                newCell.transform.localPosition = new Vector3(xCount * 0.005f - (0.005f*20f), yCount * 0.005f + 0.005f, 0.0f);
+                newCell.transform.localPosition = new Vector3(xCount * 0.005f - (0.005f*20f), yCount * 0.005f + 0.005f, 0.0f); // offset the spawn position - minimap in the middle @seb
 
                 // add a reference of this sprite renderer to the array so we can change it later quickly
                 cellSpriteRenderers[xCount, yCount] = newCell.GetComponent<SpriteRenderer>();
@@ -83,11 +85,10 @@ public class MiniMap : MonoBehaviour
                 }
             }
         }
-        playerPosition();
-
+        playerPosition(); // @seb
     }
 
-    void playerPosition() // show player position on the minimap
+    void playerPosition() // show player position on the minimap @seb
     {
         Vector3 playerPosition = player.transform.position; // get player position
         int playerX = Mathf.RoundToInt(playerPosition.x / 4f); // divide and round the number to scale player's position in game world to the minimap grid size
@@ -97,8 +98,8 @@ public class MiniMap : MonoBehaviour
         {
             cellSpriteRenderers[playerX, playerY].color = Color.blue; // render blue cell to represent the player position
         }
-        // If the player's position has changed [DEBUG]
-        if (player.transform.position != previousPlayerPosition)
+        // If the player's position has changed [DEBUG] @seb
+/*        if (player.transform.position != previousPlayerPosition)
         {
             // Print the player's new position
             Debug.Log("Player position: " + player.transform.position);
@@ -106,6 +107,6 @@ public class MiniMap : MonoBehaviour
 
             // Update previousPlayerPosition to the player's current position
             previousPlayerPosition = player.transform.position;
-        }
+        }*/
     }
 }

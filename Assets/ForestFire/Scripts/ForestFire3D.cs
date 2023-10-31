@@ -40,6 +40,7 @@ public class ForestFire3D : MonoBehaviour
     // Start is a built-in Unity function that is called before the first frame update
     private void Start()
     {
+/*        Debug.Log("Initial Player Health: " + playerMaxHealth); // DEBUG*/
         CreateGrid(gridSizeX, gridSizeY);
         RandomiseGrid();
         PauseGame(true);
