@@ -27,6 +27,10 @@ public class MiniMap : MonoBehaviour
     public GameObject onFireLabel;
     public GameObject burnedLabel;
 
+    public GameObject playerHealthLabel;
+    public PlayerHealthController playerHealthController;
+    
+
     /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*/
 
 
@@ -84,6 +88,7 @@ public class MiniMap : MonoBehaviour
         notBurningCount = 0;
         onFireCount = 0;
         burnedCount = 0;
+
         // Go through every sprite in the mini-map grid and assign the color based on the state of each cell in the forest fire 3D script   
         for (int xCount = 0; xCount < forestFire3D.gridSizeX; xCount++)
         {
@@ -171,8 +176,10 @@ public class MiniMap : MonoBehaviour
         {
             Debug.Log("Labels not found (NULL)");
         }
-
         playerPosition(); // @seb
+        int playerHealth = playerHealthController.GetPlayerHealth();
+        TextMeshPro playerHealthText = playerHealthLabel.GetComponent<TextMeshPro>();
+        playerHealthText.text = playerHealth.ToString("F0") + "HP";
     }
 
     void playerPosition() // show player position on the minimap @seb

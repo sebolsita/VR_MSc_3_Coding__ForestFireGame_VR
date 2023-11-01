@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealthController : MonoBehaviour
 {
     public int playerMaxHealth;
     public int playerHealth;
@@ -44,5 +44,10 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Game Over! Player's health reached 0.");
         // Implement your game over logic here.
+    }
+
+    public int GetPlayerHealth()
+    {
+        return playerHealth;
     }
 }
