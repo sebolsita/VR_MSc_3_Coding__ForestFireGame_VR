@@ -29,10 +29,15 @@ public class MiniMap : MonoBehaviour
 
     public GameObject playerHealthLabel;
     public PlayerHealthController playerHealthController;
-    
+
+    public TextMeshPro scoreLabel;
+    public TextMeshPro timeLabel;
+
 
     /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*/
-
+    public float NotBurningPercentage { get; private set; }
+    public float OnFirePercentage { get; private set; }
+    public float BurnedPercentage { get; private set; }
 
     // Start is a built-in Unity function that is called before the first frame update
     private void Start()
@@ -144,9 +149,9 @@ public class MiniMap : MonoBehaviour
 
         // Calculate percentages @seb
         int totalCells = forestFire3D.gridSizeX * forestFire3D.gridSizeY;
-        float notBurningPercentage = (float)notBurningCount / totalCells * 100f;
-        float onFirePercentage = (float)onFireCount / totalCells * 100f;
-        float burnedPercentage = (float)burnedCount / totalCells * 100f;
+        NotBurningPercentage = (float)notBurningCount / totalCells * 100f;
+        OnFirePercentage = (float)onFireCount / totalCells * 100f;
+        BurnedPercentage = (float)burnedCount / totalCells * 100f;
 
         // Output the percentages @seb
         /*        Debug.Log("Not Burning: " + notBurningPercentage + "%");
@@ -155,9 +160,9 @@ public class MiniMap : MonoBehaviour
         Debug.Log("notBurningLabel: " + notBurningLabel);
         Debug.Log("onFireLabel: " + onFireLabel);
         Debug.Log("burnedLabel: " + burnedLabel);
-        Debug.Log("Not Burning Percentage: " + notBurningPercentage);
-        Debug.Log("On Fire Percentage: " + onFirePercentage);
-        Debug.Log("Burned Percentage: " + burnedPercentage);
+        Debug.Log("Not Burning Percentage: " + NotBurningPercentage);
+        Debug.Log("On Fire Percentage: " + OnFirePercentage);
+        Debug.Log("Burned Percentage: " + BurnedPercentage);
 
         // Check if the GameObjects are not null before accessing their TMP components
         if (notBurningLabel != null && onFireLabel != null && burnedLabel != null)
@@ -168,9 +173,9 @@ public class MiniMap : MonoBehaviour
             TextMeshPro burnedText = burnedLabel.GetComponent<TextMeshPro>();
 
             // Update the text content of the TMP labels with the calculated percentages @seb
-            notBurningText.text = notBurningPercentage.ToString("F0") + "%"; // "F0" formats the float to two decimal places
-            onFireText.text = onFirePercentage.ToString("F0") + "%";
-            burnedText.text = burnedPercentage.ToString("F0") + "%";
+            notBurningText.text = NotBurningPercentage.ToString("F0") + "%"; // "F0" formats the float to two decimal places
+            onFireText.text = OnFirePercentage.ToString("F0") + "%";
+            burnedText.text = BurnedPercentage.ToString("F0") + "%";
         }
         else
         {

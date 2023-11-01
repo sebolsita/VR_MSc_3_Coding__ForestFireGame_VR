@@ -26,7 +26,7 @@ public class ForestFire3D : MonoBehaviour
 
     [Range(0.01f, 3f)]
     public float updateRate; // used to define how often will the game update (in seconds)
-    private float _gameTimer; // a variable that will be used detect when the game should update 
+    public float _gameTimer; // a variable that will be used detect when the game should update 
 
     public Camera gameCamera; // the camera that is players viewport
 
