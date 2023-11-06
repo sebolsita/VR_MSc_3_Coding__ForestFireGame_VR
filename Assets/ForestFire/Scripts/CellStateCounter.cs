@@ -20,7 +20,7 @@ public class CellStateCounter : MonoBehaviour
     private void Start()
     {
         // Call CountCellStates every 1 second and repeat it
-        InvokeRepeating("CountCellStates", 1f, 1f);
+        InvokeRepeating("CountCellStates", 0.25f, 0.25f);
     }
 
     public void CountCellStates()
