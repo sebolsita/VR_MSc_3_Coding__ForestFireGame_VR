@@ -1,76 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
-    public ForestFire3D forestFire3D; // Reference to the ForestFire3D script
-    public MiniMap miniMap;
     public PlayerHealthController playerHealthController; // Reference to the PlayerHealthController script
-    private bool isPaused = false;
-    private float gameStartTime;
-    private float lastUpdateTime;
+    public CellStateCounter cellStateCounter; // Reference to the CellStateCounter script
 
-    private void Start()
+    // Update is called once per second
+    private void Update()
     {
-        gameStartTime = Time.time;
-        lastUpdateTime = gameStartTime;
-        StartCoroutine(UpdateScoreEverySecond());
-    }
-    IEnumerator UpdateScoreEverySecond()
-    {
-        while (!isPaused)
+        if (playerHealthController != null && cellStateCounter != null)
         {
-            float timeElapsed = Time.time - gameStartTime;
-            int minutes = Mathf.FloorToInt(timeElapsed / 60);
-            int seconds = Mathf.FloorToInt(timeElapsed % 60);
-            string timeString = string.Format("{0:00}:{1:00}", minutes, seconds);
+            float playerHealth = playerHealthController.GetPlayerHealth();
+            float percentBurned = cellStateCounter.PercentageBurntRock;
 
-            int playerHealth = playerHealthController.GetPlayerHealth();
-            float notBurningPercentage = miniMap.NotBurningPercentage;
-            float onFirePercentage = miniMap.OnFirePercentage;
-            float burnedPercentage = miniMap.BurnedPercentage;
-            float percentCellsBurnedAndOnFire = burnedPercentage + onFirePercentage;
+            // Calculate the score based on the time elapsed since the game started
+            float timeElapsed = Time.time;
 
-            float score = CalculateScore(timeElapsed, playerHealth, percentCellsBurnedAndOnFire);
+            // Calculate the score based on your formula
+            float score = (timeElapsed * playerHealth) / (percentBurned > 0 ? percentBurned : 1); // Avoid division by zero
 
-            // Update the scoreText component in the MiniMap with the calculated score
-            miniMap.scoreLabel.text = score.ToString("F0"); // "F0" formats the float to two decimal places
-            miniMap.timeLabel.text = FormatTime(timeElapsed); // Format the time and set it to the TextMeshPro component
-
-            // Wait for one second before updating the score again
-            yield return new WaitForSeconds(1f);
+            // Pass the score and time to the CellStateInfoDisplay script
+            CellStateInfoDisplay.UpdateScoreTime(score, timeElapsed);
         }
-    }
-
-    void Update()
-    {
-
-    }
-
-    float CalculateScore(float timeInSeconds, int playerHealth, float percentCellsBurnedAndOnFire)
-    {
-        if (timeInSeconds <= 0 || percentCellsBurnedAndOnFire == 0)
-            return 0; // Prevent division by zero
-
-        return (timeInSeconds * playerHealth) / percentCellsBurnedAndOnFire;
-    }
-    string FormatTime(float timeInSeconds)
-    {
-        int minutes = Mathf.FloorToInt(timeInSeconds / 60);
-        int seconds = Mathf.FloorToInt(timeInSeconds % 60);
-        return string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
-    public void Pause()
-    {
-        isPaused = true;
-        // Handle pausing the timer and score calculation
-    }
-
-    public void Unpause()
-    {
-        isPaused = false;
-        // Handle unpausing the timer and score calculation
     }
 }

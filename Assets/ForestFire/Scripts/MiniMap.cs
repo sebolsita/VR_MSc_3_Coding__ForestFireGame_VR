@@ -23,28 +23,30 @@ public class MiniMap : MonoBehaviour
     private int onFireCount = 0;     // Count of cells that are on fire
     private int burnedCount = 0;     // Count of cells that are burned
 
-    public GameObject notBurningLabel; // Reference to the GameObject containing TextMeshPro components
+/*    public GameObject notBurningLabel; // Reference to the GameObject containing TextMeshPro components
     public GameObject onFireLabel;
-    public GameObject burnedLabel;
+    public GameObject burnedLabel;*/
 
-    public GameObject playerHealthLabel;
-    public PlayerHealthController playerHealthController;
+   // public GameObject playerHealthLabel;
+   // public PlayerHealthController playerHealthController;
 
-    public TextMeshPro scoreLabel;
-    public TextMeshPro timeLabel;
+    //public TextMeshPro scoreLabel;
+    //public TextMeshPro timeLabel;
 
-    public AudioBlending audioBlending; // Reference to the AudioBlending script @seb
+    //public AudioBlending audioBlending; // Reference to the AudioBlending script @seb
+
+   // public CellPercentageCalculator cellPercentageCalculator; // Reference to the cell percentage calculator script
 
 
-    /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*/
+    /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*//*
     public float NotBurningPercentage { get; private set; }
     public float OnFirePercentage { get; private set; }
-    public float BurnedPercentage { get; private set; }
+    public float BurnedPercentage { get; private set; }*/
 
     // Start is a built-in Unity function that is called before the first frame update
     private void Start()
     {
-        // Check if GameObjects are assigned
+        /*// Check if GameObjects are assigned
         if (notBurningLabel == null)
         {
             Debug.LogError("notBurningLabel is not assigned.");
@@ -56,7 +58,7 @@ public class MiniMap : MonoBehaviour
         if (burnedLabel == null)
         {
             Debug.LogError("burnedLabel is not assigned.");
-        }
+        }*/
 
         CreateGrid(forestFire3D.gridSizeX, forestFire3D.gridSizeY);
         previousPlayerPosition = player.transform.position; // Initialize previousPlayerPosition to the player's initial position (to refresh only when player moves) [DEBUG] @seb
@@ -149,13 +151,14 @@ public class MiniMap : MonoBehaviour
             }
         }
 
-        // Calculate percentages @seb
+/*        // Calculate percentages @seb
         int totalCells = forestFire3D.gridSizeX * forestFire3D.gridSizeY;
-        NotBurningPercentage = (float)notBurningCount / totalCells * 100f;
-        OnFirePercentage = (float)onFireCount / totalCells * 100f;
-        BurnedPercentage = (float)burnedCount / totalCells * 100f;
+*//*        // Calculate cell percentages using the cellPercentageCalculator
+        NotBurningPercentage = cellPercentageCalculator.CalculateNotBurningPercentage(notBurningCount, totalCells);
+        OnFirePercentage = cellPercentageCalculator.CalculateOnFirePercentage(onFireCount, totalCells);
+        BurnedPercentage = cellPercentageCalculator.CalculateBurnedPercentage(burnedCount, totalCells);*/
 
-        audioBlending.SetAudioVolumes(BurnedPercentage);
+        /*audioBlending.SetAudioVolumes(BurnedPercentage);*/
         // Output the percentages DEBUG @seb
         /*        Debug.Log("notBurningLabel: " + notBurningLabel);
                 Debug.Log("onFireLabel: " + onFireLabel);
@@ -165,7 +168,7 @@ public class MiniMap : MonoBehaviour
                 Debug.Log("Burned Percentage: " + BurnedPercentage);*/
 
         // Check if the GameObjects are not null before accessing their TMP components
-        if (notBurningLabel != null && onFireLabel != null && burnedLabel != null)
+        /*if (notBurningLabel != null && onFireLabel != null && burnedLabel != null)
         {
             // Access the TextMeshPro component within the GameObject @seb
             TextMeshPro notBurningText = notBurningLabel.GetComponent<TextMeshPro>();
@@ -180,11 +183,11 @@ public class MiniMap : MonoBehaviour
         else
         {
             Debug.Log("Labels not found (NULL)");
-        }
+        }*/
         playerPosition(); // @seb
-        int playerHealth = playerHealthController.GetPlayerHealth();
-        TextMeshPro playerHealthText = playerHealthLabel.GetComponent<TextMeshPro>();
-        playerHealthText.text = playerHealth.ToString("F0") + "HP";
+        //int playerHealth = playerHealthController.GetPlayerHealth();
+        //TextMeshPro playerHealthText = playerHealthLabel.GetComponent<TextMeshPro>();
+        //playerHealthText.text = playerHealth.ToString("F0") + "HP";
     }
 
     void playerPosition() // show player position on the minimap @seb
