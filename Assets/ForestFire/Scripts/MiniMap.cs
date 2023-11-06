@@ -33,6 +33,8 @@ public class MiniMap : MonoBehaviour
     public TextMeshPro scoreLabel;
     public TextMeshPro timeLabel;
 
+    public AudioBlending audioBlending; // Reference to the AudioBlending script @seb
+
 
     /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*/
     public float NotBurningPercentage { get; private set; }
@@ -153,13 +155,14 @@ public class MiniMap : MonoBehaviour
         OnFirePercentage = (float)onFireCount / totalCells * 100f;
         BurnedPercentage = (float)burnedCount / totalCells * 100f;
 
+        audioBlending.SetAudioVolumes(BurnedPercentage);
         // Output the percentages DEBUG @seb
-/*        Debug.Log("notBurningLabel: " + notBurningLabel);
-        Debug.Log("onFireLabel: " + onFireLabel);
-        Debug.Log("burnedLabel: " + burnedLabel);
-        Debug.Log("Not Burning Percentage: " + NotBurningPercentage);
-        Debug.Log("On Fire Percentage: " + OnFirePercentage);
-        Debug.Log("Burned Percentage: " + BurnedPercentage);*/
+        /*        Debug.Log("notBurningLabel: " + notBurningLabel);
+                Debug.Log("onFireLabel: " + onFireLabel);
+                Debug.Log("burnedLabel: " + burnedLabel);
+                Debug.Log("Not Burning Percentage: " + NotBurningPercentage);
+                Debug.Log("On Fire Percentage: " + OnFirePercentage);
+                Debug.Log("Burned Percentage: " + BurnedPercentage);*/
 
         // Check if the GameObjects are not null before accessing their TMP components
         if (notBurningLabel != null && onFireLabel != null && burnedLabel != null)
