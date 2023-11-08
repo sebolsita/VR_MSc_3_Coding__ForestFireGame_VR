@@ -1116,15 +1116,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010376953210, guid: 1cd82d870e6ee224a859e65f4107da95, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000010376953210, guid: 1cd82d870e6ee224a859e65f4107da95, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000010376953210, guid: 1cd82d870e6ee224a859e65f4107da95, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000010376953210, guid: 1cd82d870e6ee224a859e65f4107da95, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1176,7 +1176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013264326180, guid: 1cd82d870e6ee224a859e65f4107da95, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.269
+      value: 1.2530994
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1737,6 +1737,11 @@ PrefabInstance:
       propertyPath: fireSound
       value: 
       objectReference: {fileID: 8300000, guid: fd2f1d3b33b5b1443bcf9e550321e83a, type: 3}
+    - target: {fileID: 4283532953363553607, guid: 37e98970f8baf7647b735d9036006f0d,
+        type: 3}
+      propertyPath: shotPower
+      value: 1400
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2284,6 +2289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitMarkerAudioSource: {fileID: 0}
+  delayBeforeDestroy: 0.05
 --- !u!1001 &747769544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3397,10 +3403,14 @@ MonoBehaviour:
   - Hit1
   - Hit2
   - Hit3
-  audioSource: {fileID: 0}
+  fallDownAnimation: FallDown
+  audioSource: {fileID: 1536082923}
   hitSound1: {fileID: 8300000, guid: ce15d287016636c4e8b73f29da10ca14, type: 3}
   hitSound2: {fileID: 8300000, guid: 73ca8f5d0b238ea43b76d256477fc456, type: 3}
-  painSoundVolume: 0.35
+  painSoundVolume: 0.4
+  fallDownSound1: {fileID: 8300000, guid: 2c83ecbc9a095c54481cb1eaa68ab383, type: 3}
+  fallDownSound2: {fileID: 8300000, guid: d86b2804cb4dd6847a429b61f3401f1d, type: 3}
+  fallDownSound3: {fileID: 8300000, guid: 49026476a441a91438673260d9455d3b, type: 3}
 --- !u!164 &1536082922
 AudioReverbFilter:
   m_ObjectHideFlags: 0
@@ -3436,7 +3446,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c15c8c24249ba934d97b64c5bff7b838, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0

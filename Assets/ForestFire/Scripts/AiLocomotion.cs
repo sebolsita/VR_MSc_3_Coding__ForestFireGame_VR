@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -16,11 +17,20 @@ public class AiLocomotion : MonoBehaviour
     private float timeSinceLastUpdate = 0.0f;
 
     public string[] hitAnimations; // Array to store the hit animation state names
+    public string fallDownAnimation; // Name of the "FallDown" animation state
+
+    // Variable to track the number of hits
+    private int hitCount = 0;
+
 
     public AudioSource audioSource; // Reference to the AudioSource component
     public AudioClip hitSound1; // First hit sound for pain
     public AudioClip hitSound2; // Second hit sound for pain
-    public float painSoundVolume = 0.5f; // Adjust the volume here (0.0f to 1.0f)
+    public float painSoundVolume; // Adjust the volume here (0.0f to 1.0f)
+    public AudioClip fallDownSound1;
+    public AudioClip fallDownSound2;
+    public AudioClip fallDownSound3;
+    private float sound2Delay = 2.0f; // 2-second delay for the second sound
 
     void Start()
     {
@@ -40,25 +50,54 @@ public class AiLocomotion : MonoBehaviour
         // Check if the enemy has been hit
         if (isHit && !isAnimatingHit)
         {
-            // Choose a random hit animation from the array
-            string randomHitAnimation = hitAnimations[Random.Range(0, hitAnimations.Length)];
-            animator.SetTrigger("HitAnimation"); // Trigger the generic "HitAnimation" trigger
-            animator.Play(randomHitAnimation); // Play the chosen hit animation
-            isAnimatingHit = true; // Mark that hit animation is playing
-            hitAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length; // Get the length of the current hit animation
-            hitAnimationTimer = 0f; // Initialize the timer
+            hitCount++;
             agent.isStopped = true; // Stop the enemy's movement
-            isHit = false; // Reset the hit flag
 
-            // Play one of the two hit sounds randomly for pain with adjusted volume
-            int randomSound = Random.Range(0, 2);
-            if (randomSound == 0)
+            if (hitCount >= 10)
             {
-                audioSource.PlayOneShot(hitSound1, painSoundVolume);
+                Debug.Log("Enemy fall down!");
+                // Play the "FallDown" animation
+                animator.SetTrigger("FallDownAnimation");
+                animator.Play(fallDownAnimation);
+
+                audioSource.PlayOneShot(fallDownSound1);
+                StartCoroutine(PlaySecondFallDownSound());
+                audioSource.PlayOneShot(fallDownSound3);
+
+                isAnimatingHit = true; // Mark that hit animation is playing
+                hitAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length +7f; // Get the length of the current hit animation
+                hitAnimationTimer = 0f;
+
+                // Stop the agent's movement
+                agent.isStopped = true;
+
+                // Reset the hit count
+                hitCount = 0;
+                isHit = false; // Reset the hit flag
             }
             else
             {
-                audioSource.PlayOneShot(hitSound2, painSoundVolume);
+                Debug.Log("Enemy registered the hit! > " + hitCount);
+                // Choose a random hit animation from the array
+                string randomHitAnimation = hitAnimations[Random.Range(0, hitAnimations.Length)];
+                animator.SetTrigger("HitAnimation"); // Trigger the generic "HitAnimation" trigger
+                animator.Play(randomHitAnimation); // Play the chosen hit animation
+                isAnimatingHit = true; // Mark that hit animation is playing
+                hitAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length; // Get the length of the current hit animation
+                hitAnimationTimer = 0f; // Initialize the timer
+
+                isHit = false; // Reset the hit flag
+
+                            // Play one of the two hit sounds randomly for pain with adjusted volume
+                int randomSound = Random.Range(0, 2);
+                     if (randomSound == 0)
+                     {
+                       audioSource.PlayOneShot(hitSound1, painSoundVolume);
+                     }
+                     else
+                     {
+                        audioSource.PlayOneShot(hitSound2, painSoundVolume);
+                     }
             }
         }
 
@@ -99,5 +138,11 @@ public class AiLocomotion : MonoBehaviour
     private void HandleHitRegistered()
     {
         GetHit(); // You can call your existing GetHit method here
+    }
+
+    private IEnumerator PlaySecondFallDownSound()
+    {
+        yield return new WaitForSeconds(sound2Delay);
+        audioSource.PlayOneShot(fallDownSound2);
     }
 }

@@ -6,7 +6,7 @@ public class BulletCollision : MonoBehaviour
     public static event HitRegistered OnHitRegistered;
     public AudioSource hitMarkerAudioSource; // Reference to the AudioSource for the hit marker sound
 
-    public float delayBeforeDestroy = 0.05f; // Adjust the delay as needed
+    public float delayBeforeDestroy = 0.01f; // Adjust the delay as needed
 
     private void Update()
     {
