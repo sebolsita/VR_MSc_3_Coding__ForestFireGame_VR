@@ -8,6 +8,8 @@ public class PlayerHealthController : MonoBehaviour
     public int playerHealth;
     private bool isDamaged;
     private float damageInterval = 0.1f;
+    public AudioSource fireDamageSource;
+    public AudioClip fireDamage;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,12 +29,13 @@ public class PlayerHealthController : MonoBehaviour
         }
     }
 
-    void ApplyFireDamage()
+    public void ApplyFireDamage()
     {
         playerHealth -= 1;
         playerHealth = Mathf.Max(playerHealth, 0);
 
         Debug.Log("Player's Current Health: " + playerHealth);
+        fireDamageSource.PlayOneShot(fireDamage, 4f);
 
         if (playerHealth <= 0)
         {

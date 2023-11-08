@@ -13,7 +13,7 @@ public class AiLocomotion : MonoBehaviour
     float hitAnimationLength; // Length of the hit animation
     float hitAnimationTimer; // Timer to control hit animation duration
 
-    private float updateInterval = 1.0f; // Update player position every 1 second
+    private float updateInterval = 3.0f; // Update player position 
     private float timeSinceLastUpdate = 0.0f;
 
     public string[] hitAnimations; // Array to store the hit animation state names
@@ -32,6 +32,15 @@ public class AiLocomotion : MonoBehaviour
     public AudioClip fallDownSound3;
     private float sound2Delay = 2.0f; // 2-second delay for the second sound
 
+    public GameObject particleObject; // Reference to the GameObject you want to activate/deactivate.
+
+    public PlayerHealthController playerHealthController;
+    private bool isTakingFireDamage = false;
+    private float fireDamageInterval = 0.1f;
+    private float fireDamageTimer = 0f;
+    private float timeSinceLastFireDamage = 0f;
+    private float fireDamageDelay = 0.33f;
+
     void Start()
     {
         BulletCollision.OnHitRegistered += HandleHitRegistered;
@@ -47,6 +56,53 @@ public class AiLocomotion : MonoBehaviour
 
     void Update()
     {
+        // Check if the agent is within its stopping distance
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            // Calculate the direction from the agent to the player
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            directionToPlayer.y = 0f; // Ensure it's in the horizontal plane
+
+            if (directionToPlayer != Vector3.zero)
+            {
+                // Make the agent face the player by setting its rotation
+                transform.rotation = Quaternion.LookRotation(directionToPlayer);
+            }
+
+/*            // Activate the particle object when the stopping distance is reached
+            particleObject.SetActive(true);*/
+
+            // Start applying fire damage after a delay
+            if (timeSinceLastFireDamage >= fireDamageDelay)
+            {
+                isTakingFireDamage = true;
+                // Activate the particle object when the stopping distance is reached
+                particleObject.SetActive(true);
+            }
+            else
+            {
+                timeSinceLastFireDamage += Time.deltaTime;
+            }
+
+            // Apply fire damage if within stopping distance and the timer is up
+            if (isTakingFireDamage)
+            {
+                fireDamageTimer += Time.deltaTime;
+                if (fireDamageTimer >= fireDamageInterval)
+                {
+                    playerHealthController.ApplyFireDamage();
+                    fireDamageTimer = 0f; // Reset the fire damage timer
+                }
+            }
+        }
+        else
+        {
+            // Deactivate the particle object when the agent is not within stopping distance
+            particleObject.SetActive(false);
+            isTakingFireDamage = false;
+            timeSinceLastFireDamage = 0f; // Reset the timer when not in stopping distance
+        }
+
         // Check if the enemy has been hit
         if (isHit && !isAnimatingHit)
         {

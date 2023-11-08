@@ -21,7 +21,7 @@ public class AudioBlending : MonoBehaviour
         }
 
         float maxVolume1 = 0.55f;  // Set the maximum volume limit for sound 1
-        float maxVolume2 = 0.3f;  // Set the maximum volume limit for sound 2
+        float maxVolume2 = 0.4f;  // Set the maximum volume limit for sound 2
 
         // Determine the threshold at which sound 1 goes silent (e.g., 70% burned)
         float sound1SilentThreshold = 0.70f;
