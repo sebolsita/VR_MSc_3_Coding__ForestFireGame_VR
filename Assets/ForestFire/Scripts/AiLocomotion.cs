@@ -1,25 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class AiLocomotion : MonoBehaviour
 {
     public Transform playerTransform;
     NavMeshAgent agent;
     Animator animator;
+    bool isHit = false; // Variable to track if the enemy has been hit
+    bool isAnimatingHit = false; // Variable to track if hit animation is playing
+    float hitAnimationLength; // Length of the hit animation
+    float hitAnimationTimer; // Timer to control hit animation duration
 
     private float updateInterval = 1.0f; // Update player position every 1 second
     private float timeSinceLastUpdate = 0.0f;
 
+    public string[] hitAnimations; // Array to store the hit animation state names
+
+    public AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip hitSound1; // First hit sound for pain
+    public AudioClip hitSound2; // Second hit sound for pain
+    public float painSoundVolume = 0.5f; // Adjust the volume here (0.0f to 1.0f)
+
     void Start()
     {
+        BulletCollision.OnHitRegistered += HandleHitRegistered;
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent <Animator>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnDisable()
+    {
+        BulletCollision.OnHitRegistered -= HandleHitRegistered;
     }
 
     void Update()
     {
+        // Check if the enemy has been hit
+        if (isHit && !isAnimatingHit)
+        {
+            // Choose a random hit animation from the array
+            string randomHitAnimation = hitAnimations[Random.Range(0, hitAnimations.Length)];
+            animator.SetTrigger("HitAnimation"); // Trigger the generic "HitAnimation" trigger
+            animator.Play(randomHitAnimation); // Play the chosen hit animation
+            isAnimatingHit = true; // Mark that hit animation is playing
+            hitAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length; // Get the length of the current hit animation
+            hitAnimationTimer = 0f; // Initialize the timer
+            agent.isStopped = true; // Stop the enemy's movement
+            isHit = false; // Reset the hit flag
+
+            // Play one of the two hit sounds randomly for pain with adjusted volume
+            int randomSound = Random.Range(0, 2);
+            if (randomSound == 0)
+            {
+                audioSource.PlayOneShot(hitSound1, painSoundVolume);
+            }
+            else
+            {
+                audioSource.PlayOneShot(hitSound2, painSoundVolume);
+            }
+        }
+
+        // Check if the hit animation is playing
+        if (isAnimatingHit)
+        {
+            hitAnimationTimer += Time.deltaTime;
+            if (hitAnimationTimer >= hitAnimationLength)
+            {
+                isAnimatingHit = false; // The hit animation has finished playing
+                agent.isStopped = false; // Re-enable the enemy's movement
+            }
+        }
+
+        animator.SetFloat("Speed", agent.velocity.magnitude);
+
         // Update the time since the last position update
         timeSinceLastUpdate += Time.deltaTime;
 
@@ -28,10 +83,21 @@ public class AiLocomotion : MonoBehaviour
         {
             // Set the destination to the player's position
             agent.destination = playerTransform.position;
-            animator.SetFloat("Speed", agent.velocity.magnitude);
 
             // Reset the timeSinceLastUpdate
             timeSinceLastUpdate = 0.0f;
         }
+    }
+
+    // Add a method to handle getting hit
+    public void GetHit()
+    {
+        isHit = true;
+    }
+
+    // Handle hit event
+    private void HandleHitRegistered()
+    {
+        GetHit(); // You can call your existing GetHit method here
     }
 }

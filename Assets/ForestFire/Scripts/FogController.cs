@@ -7,7 +7,7 @@ public class FogController : MonoBehaviour
     private float startPercentage = 10f;
     private float endPercentage = 75f;
     private float startFogDensity = 0.0001f;
-    private float endFogDensity = 0.4f;
+    private float endFogDensity = 0.04f;
     private float updateInterval = 0.25f; // Update every 0.25 seconds
 
     private void Start()

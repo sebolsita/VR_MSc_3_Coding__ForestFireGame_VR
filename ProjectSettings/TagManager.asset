@@ -7,6 +7,8 @@ TagManager:
   - Ignite
   - FireCell
   - Fire
+  - enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - Hands
   - Teleporter
   - NoHandCollide
-  - 
-  - 
+  - Humanoid
+  - Bullet
   - 
   - 
   - 
