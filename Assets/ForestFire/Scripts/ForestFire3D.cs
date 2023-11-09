@@ -30,6 +30,9 @@ public class ForestFire3D : MonoBehaviour
 
     public Camera gameCamera; // the camera that is players viewport
 
+    public GameObject aiAgentGameObject;
+
+
     // Awake is a built-in Unity function that is only called once, before the Start function
     private void Awake()
     {
@@ -70,11 +73,13 @@ public class ForestFire3D : MonoBehaviour
             // if the gameRunning is true, pause the game
             if (gameRunning)
             {
-                PauseGame(true);            
+                PauseGame(true);
+                DeActivateAI();
             }
             else // if the gameRunning is false, unpause the game
             {
                 PauseGame(false);
+                ActivateAI();
             }
         }
 
@@ -337,5 +342,13 @@ public class ForestFire3D : MonoBehaviour
                 }
             }
         }
+    }
+    private void ActivateAI()
+    {
+        aiAgentGameObject.SetActive(true);
+    }
+    private void DeActivateAI()
+    {
+        aiAgentGameObject.SetActive(false);
     }
 }

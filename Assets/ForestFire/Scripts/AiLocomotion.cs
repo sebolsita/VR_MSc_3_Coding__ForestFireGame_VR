@@ -43,6 +43,8 @@ public class AiLocomotion : MonoBehaviour
 
     public ScoreSystem scoreSystem; // Reference to the ScoreSystem script
 
+    float timeElapsed = 0.0f;
+
 
     void Start()
     {
@@ -59,6 +61,7 @@ public class AiLocomotion : MonoBehaviour
 
     void Update()
     {
+        timeElapsed += Time.deltaTime;
         // Check if the agent is within its stopping distance
         if (agent.remainingDistance <= agent.stoppingDistance && agent.isStopped != true)
         {
@@ -72,29 +75,31 @@ public class AiLocomotion : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(directionToPlayer);
             }
 
-/*            // Activate the particle object when the stopping distance is reached
-            particleObject.SetActive(true);*/
-
-            // Start applying fire damage after a delay
-            if (timeSinceLastFireDamage >= fireDamageDelay)
+            /*            // Activate the particle object when the stopping distance is reached
+                        particleObject.SetActive(true);*/
+            if (timeElapsed >= 3.0f)
             {
-                isTakingFireDamage = true;
-                // Activate the particle object when the stopping distance is reached
-                particleObject.SetActive(true);
-            }
-            else
-            {
-                timeSinceLastFireDamage += Time.deltaTime;
-            }
-
-            // Apply fire damage if within stopping distance and the timer is up
-            if (isTakingFireDamage)
-            {
-                fireDamageTimer += Time.deltaTime;
-                if (fireDamageTimer >= fireDamageInterval)
+                // Start applying fire damage after a delay
+                if (timeSinceLastFireDamage >= fireDamageDelay)
                 {
-                    playerHealthController.ApplyFireDamage();
-                    fireDamageTimer = 0f; // Reset the fire damage timer
+                    isTakingFireDamage = true;
+                    // Activate the particle object when the stopping distance is reached
+                    particleObject.SetActive(true);
+                }
+                else
+                {
+                    timeSinceLastFireDamage += Time.deltaTime;
+                }
+
+                // Apply fire damage if within stopping distance and the timer is up
+                if (isTakingFireDamage)
+                {
+                    fireDamageTimer += Time.deltaTime;
+                    if (fireDamageTimer >= fireDamageInterval)
+                    {
+                        playerHealthController.ApplyFireDamage();
+                        fireDamageTimer = 0f; // Reset the fire damage timer
+                    }
                 }
             }
         }
@@ -105,6 +110,7 @@ public class AiLocomotion : MonoBehaviour
             isTakingFireDamage = false;
             timeSinceLastFireDamage = 0f; // Reset the timer when not in stopping distance
         }
+
 
         // Check if the enemy has been hit
         if (isHit && !isAnimatingHit)

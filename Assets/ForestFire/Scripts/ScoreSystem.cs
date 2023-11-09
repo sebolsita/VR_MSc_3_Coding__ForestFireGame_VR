@@ -5,24 +5,28 @@ public class ScoreSystem : MonoBehaviour
 {
     public PlayerHealthController playerHealthController; // Reference to the PlayerHealthController script
     public CellStateCounter cellStateCounter; // Reference to the CellStateCounter script
+    public ForestFire3D forestFire; // Reference to the ForestFire3D script
     private float score;
-
+    private float timeElapsed; // Add this variable at the beginning of your ScoreSystem class
 
     private void Update()
     {
-        if (playerHealthController != null && cellStateCounter != null)
+        if (forestFire != null && forestFire.gameRunning)
         {
-            float playerHealth = playerHealthController.GetPlayerHealth();
-            float percentBurned = cellStateCounter.PercentageBurntRock;
+            if (playerHealthController != null && cellStateCounter != null)
+            {
+                // Calculate the score based on the time elapsed since the game started
+                timeElapsed += Time.deltaTime;
 
-            // Calculate the score based on the time elapsed since the game started
-            float timeElapsed = Time.time;
+                float playerHealth = playerHealthController.GetPlayerHealth();
+                float percentBurned = cellStateCounter.PercentageBurntRock;
 
-            // Calculate the score based on your formula
-            score = (timeElapsed * playerHealth) / (percentBurned > 0 ? percentBurned : 1); // Avoid division by zero
+                // Calculate the score based on your formula
+                score = (timeElapsed * playerHealth) / (percentBurned > 0 ? percentBurned : 1); // Avoid division by zero
 
-            // Pass the score and time to the CellStateInfoDisplay script
-            CellStateInfoDisplay.UpdateScoreTime(score, timeElapsed);
+                // Pass the score and time to the CellStateInfoDisplay script
+                CellStateInfoDisplay.UpdateScoreTime(score, timeElapsed);
+            }
         }
     }
 
