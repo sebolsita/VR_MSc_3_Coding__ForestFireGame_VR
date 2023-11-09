@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.UI;
+﻿using System.Collections; // Import the System.Collections namespace for working with coroutines.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for working with lists.
+using TMPro; // Import the TextMeshPro namespace for text components.
+using UnityEngine; // Import the UnityEngine namespace for Unity functionality.
+using UnityEngine.PlayerLoop; // Import the UnityEngine.PlayerLoop namespace for PlayerLoop systems.
+using UnityEngine.ProBuilder.Shapes; // Import the ProBuilder.Shapes namespace for ProBuilder shapes.
+using UnityEngine.UI; // Import the UnityEngine.UI namespace for UI components.
+
 
 
 public class MiniMap : MonoBehaviour
@@ -23,25 +24,6 @@ public class MiniMap : MonoBehaviour
     private int onFireCount = 0;     // Count of cells that are on fire
     private int burnedCount = 0;     // Count of cells that are burned
 
-/*    public GameObject notBurningLabel; // Reference to the GameObject containing TextMeshPro components
-    public GameObject onFireLabel;
-    public GameObject burnedLabel;*/
-
-   // public GameObject playerHealthLabel;
-   // public PlayerHealthController playerHealthController;
-
-    //public TextMeshPro scoreLabel;
-    //public TextMeshPro timeLabel;
-
-    //public AudioBlending audioBlending; // Reference to the AudioBlending script @seb
-
-   // public CellPercentageCalculator cellPercentageCalculator; // Reference to the cell percentage calculator script
-
-
-    /*public Slider healthSlider; // Reference to the Slider component for displaying health @seb*//*
-    public float NotBurningPercentage { get; private set; }
-    public float OnFirePercentage { get; private set; }
-    public float BurnedPercentage { get; private set; }*/
 
     // Start is a built-in Unity function that is called before the first frame update
     private void Start()
@@ -150,44 +132,7 @@ public class MiniMap : MonoBehaviour
                 }
             }
         }
-
-/*        // Calculate percentages @seb
-        int totalCells = forestFire3D.gridSizeX * forestFire3D.gridSizeY;
-*//*        // Calculate cell percentages using the cellPercentageCalculator
-        NotBurningPercentage = cellPercentageCalculator.CalculateNotBurningPercentage(notBurningCount, totalCells);
-        OnFirePercentage = cellPercentageCalculator.CalculateOnFirePercentage(onFireCount, totalCells);
-        BurnedPercentage = cellPercentageCalculator.CalculateBurnedPercentage(burnedCount, totalCells);*/
-
-        /*audioBlending.SetAudioVolumes(BurnedPercentage);*/
-        // Output the percentages DEBUG @seb
-        /*        Debug.Log("notBurningLabel: " + notBurningLabel);
-                Debug.Log("onFireLabel: " + onFireLabel);
-                Debug.Log("burnedLabel: " + burnedLabel);
-                Debug.Log("Not Burning Percentage: " + NotBurningPercentage);
-                Debug.Log("On Fire Percentage: " + OnFirePercentage);
-                Debug.Log("Burned Percentage: " + BurnedPercentage);*/
-
-        // Check if the GameObjects are not null before accessing their TMP components
-        /*if (notBurningLabel != null && onFireLabel != null && burnedLabel != null)
-        {
-            // Access the TextMeshPro component within the GameObject @seb
-            TextMeshPro notBurningText = notBurningLabel.GetComponent<TextMeshPro>();
-            TextMeshPro onFireText = onFireLabel.GetComponent<TextMeshPro>();
-            TextMeshPro burnedText = burnedLabel.GetComponent<TextMeshPro>();
-
-            // Update the text content of the TMP labels with the calculated percentages @seb
-            notBurningText.text = NotBurningPercentage.ToString("F0") + "%"; // "F0" formats the float to two decimal places
-            onFireText.text = OnFirePercentage.ToString("F0") + "%";
-            burnedText.text = BurnedPercentage.ToString("F0") + "%";
-        }
-        else
-        {
-            Debug.Log("Labels not found (NULL)");
-        }*/
         playerPosition(); // @seb
-        //int playerHealth = playerHealthController.GetPlayerHealth();
-        //TextMeshPro playerHealthText = playerHealthLabel.GetComponent<TextMeshPro>();
-        //playerHealthText.text = playerHealth.ToString("F0") + "HP";
     }
 
     void playerPosition() // show player position on the minimap @seb

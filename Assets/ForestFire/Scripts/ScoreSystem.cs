@@ -1,13 +1,12 @@
-using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine; // Import the UnityEngine namespace for Unity functionality.
 
 public class ScoreSystem : MonoBehaviour
 {
-    public PlayerHealthController playerHealthController; // Reference to the PlayerHealthController script
-    public CellStateCounter cellStateCounter; // Reference to the CellStateCounter script
-    public ForestFire3D forestFire; // Reference to the ForestFire3D script
-    private float score;
-    private float timeElapsed; // Add this variable at the beginning of your ScoreSystem class
+    public PlayerHealthController playerHealthController; // Reference to the PlayerHealthController script.
+    public CellStateCounter cellStateCounter; // Reference to the CellStateCounter script.
+    public ForestFire3D forestFire; // Reference to the ForestFire3D script.
+    public float score; // Variable to store the player's score.
+    private float timeElapsed; // Variable to track the time elapsed since the game started.
 
     private void Update()
     {
@@ -18,13 +17,13 @@ public class ScoreSystem : MonoBehaviour
                 // Calculate the score based on the time elapsed since the game started
                 timeElapsed += Time.deltaTime;
 
-                float playerHealth = playerHealthController.GetPlayerHealth();
-                float percentBurned = cellStateCounter.PercentageBurntRock;
+                float playerHealth = playerHealthController.GetPlayerHealth(); // Get the player's health from the PlayerHealthController.
+                float percentBurned = cellStateCounter.PercentageBurntRock; // Get the percentage of burnt rocks from CellStateCounter.
 
-                // Calculate the score based on your formula
-                score = (timeElapsed * playerHealth) / (percentBurned > 0 ? percentBurned : 1); // Avoid division by zero
+                // Calculate the score based on your formula, avoid division by zero.
+                score = (timeElapsed * playerHealth) / (percentBurned > 0 ? percentBurned : 1);
 
-                // Pass the score and time to the CellStateInfoDisplay script
+                // Pass the score and time to the CellStateInfoDisplay script.
                 CellStateInfoDisplay.UpdateScoreTime(score, timeElapsed);
             }
         }
@@ -32,11 +31,11 @@ public class ScoreSystem : MonoBehaviour
 
     public void AddScoreOnHit()
     {
-        score += 50; // Add 50 points to the score when the enemy gets hit
+        score += 50; // Add 50 points to the score when the enemy gets hit.
     }
 
     public void AddScoreOnFall()
     {
-        score += 500; // Add 500 points to the score when the enemy falls on the ground
+        score += 500; // Add 500 points to the score when the enemy falls on the ground.
     }
 }

@@ -1841,7 +1841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &102820936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1857,6 +1857,7 @@ MonoBehaviour:
   playerHealthController: {fileID: 2014689013}
   cellStateCounter: {fileID: 1989176012}
   forestFire: {fileID: 0}
+  score: 0
 --- !u!4 &102820937
 Transform:
   m_ObjectHideFlags: 0
@@ -3724,14 +3725,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541251497}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0216, y: 0.07, z: 0.013}
+  m_LocalRotation: {x: -0.000000021855694, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0016000438, y: 0.0040001348, z: 0.0010022612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2058252640}
   - {fileID: 1862373420}
-  m_Father: {fileID: 561249123}
+  m_Father: {fileID: 1361566685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &549677758
 Mesh:
@@ -3989,22 +3990,22 @@ PrefabInstance:
     - target: {fileID: 6770146545802020267, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.02
+      value: -0.004
       objectReference: {fileID: 0}
     - target: {fileID: 6770146545802020267, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.066
+      value: -0.011
       objectReference: {fileID: 0}
     - target: {fileID: 6770146545802020267, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.012
+      value: -0.002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2872250911046700568, guid: 37e98970f8baf7647b735d9036006f0d,
+    - targetCorrespondingSourceObject: {fileID: 6770146545802020267, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 541251498}
@@ -4029,12 +4030,6 @@ PrefabInstance:
 --- !u!1 &561249122 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2867417286392604782, guid: 37e98970f8baf7647b735d9036006f0d,
-    type: 3}
-  m_PrefabInstance: {fileID: 561249121}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &561249123 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2872250911046700568, guid: 37e98970f8baf7647b735d9036006f0d,
     type: 3}
   m_PrefabInstance: {fileID: 561249121}
   m_PrefabAsset: {fileID: 0}
@@ -4162,7 +4157,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 1
+  m_MovementType: 2
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -11406,6 +11401,12 @@ AudioReverbFilter:
   m_LFReference: 250
   m_ReflectionsDelay: 0
   m_ReverbPreset: 16
+--- !u!4 &1361566685 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6770146545802020267, guid: 37e98970f8baf7647b735d9036006f0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 561249121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1419857630
 GameObject:
   m_ObjectHideFlags: 0
@@ -12393,7 +12394,7 @@ MonoBehaviour:
   fallDownSound3: {fileID: 8300000, guid: 49026476a441a91438673260d9455d3b, type: 3}
   particleObject: {fileID: 1235101621}
   playerHealthController: {fileID: 2014689013}
-  scoreSystem: {fileID: 0}
+  scoreSystem: {fileID: 102820936}
 --- !u!164 &1536082922
 AudioReverbFilter:
   m_ObjectHideFlags: 0
@@ -13412,22 +13413,25 @@ PrefabInstance:
       value: 'Welcome To The Forest Fire - Seb''s Version Demo
 
         Avoid the
-        Enemy and try to save the forest
+        Enemy and try [save the forest]*
 
-        Shoot fire cells to put out the
-        fire
+        Extingusher and evacuation not
+        yet implemented!*
 
-        A - Start game
+        Space - Start game
 
-        Left Axis - Move
+        Alt +F4 - Quit <3
 
-        Right Axis
-        - Look around and teleport
+        Left
+        Axis - Move
 
-        Right Hand Grab Button - Grab items
+        Right Axis - Look around and teleport
 
-        (try
-        not to use the ray as it''s blocking looking around)
+        Right
+        Hand Grab Button - Grab items
+
+        (try not to use the ray as it''s blocking
+        looking around)
 
         Score = [Time/(Burned%)*HP]+EnemyHits'
       objectReference: {fileID: 0}
@@ -49712,6 +49716,7 @@ MonoBehaviour:
   playerHealthController: {fileID: 2014689013}
   cellStateCounter: {fileID: 1989176012}
   forestFire: {fileID: 219239745}
+  score: 0
 --- !u!82 &2014689020
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,12 +1,12 @@
-using UnityEngine;
+using UnityEngine; // Import the UnityEngine namespace for Unity functionality.
 
 public class BulletCollision : MonoBehaviour
 {
-    public delegate void HitRegistered();
-    public static event HitRegistered OnHitRegistered;
-    public AudioSource hitMarkerAudioSource; // Reference to the AudioSource for the hit marker sound
+    public delegate void HitRegistered(); // Delegate for hit registration event.
+    public static event HitRegistered OnHitRegistered; // Event triggered when a hit is registered.
+    public AudioSource hitMarkerAudioSource; // Reference to the AudioSource for the hit marker sound.
 
-    public float delayBeforeDestroy = 0.01f; // Adjust the delay as needed
+    public float delayBeforeDestroy = 0.01f; // Adjust the delay as needed for destroying the bullet.
 
     private void Update()
     {
