@@ -41,6 +41,9 @@ public class AiLocomotion : MonoBehaviour
     private float timeSinceLastFireDamage = 0f;
     private float fireDamageDelay = 0.33f;
 
+    public ScoreSystem scoreSystem; // Reference to the ScoreSystem script
+
+
     void Start()
     {
         BulletCollision.OnHitRegistered += HandleHitRegistered;
@@ -57,7 +60,7 @@ public class AiLocomotion : MonoBehaviour
     void Update()
     {
         // Check if the agent is within its stopping distance
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (agent.remainingDistance <= agent.stoppingDistance && agent.isStopped != true)
         {
             // Calculate the direction from the agent to the player
             Vector3 directionToPlayer = playerTransform.position - transform.position;
@@ -112,6 +115,7 @@ public class AiLocomotion : MonoBehaviour
             if (hitCount >= 10)
             {
                 Debug.Log("Enemy fall down!");
+                scoreSystem.AddScoreOnFall();
                 // Play the "FallDown" animation
                 animator.SetTrigger("FallDownAnimation");
                 animator.Play(fallDownAnimation);
@@ -194,6 +198,7 @@ public class AiLocomotion : MonoBehaviour
     private void HandleHitRegistered()
     {
         GetHit(); // You can call your existing GetHit method here
+        scoreSystem.AddScoreOnHit();
     }
 
     private IEnumerator PlaySecondFallDownSound()
