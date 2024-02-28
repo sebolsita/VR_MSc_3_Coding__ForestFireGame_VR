@@ -19,17 +19,17 @@
     <img src="https://i.ibb.co/7xhmFJ6/logio-productions2.png" alt="Logo" width="350" height="350">
   </a>
 
-<h3 align="center">Coding - Forest Fire [The Game of Live]</h3>
+<h3 align="center">Coding - Forest Fire [The Game of Live variation]</h3>
 
   <p align="center">
-This is 3rd project done during my MSc Virtual Reality studies, focusing on the enhancement of an existing Forest Fire simulation.
-The goal is to introduce modifications that are deeply rooted in new C# code, going beyond surface-level changes to add meaningful functionality.
+This is 3rd project done during my MSc Virtual Reality studies, focusing on the enhancement of an existing Forest Fire simulation.<br>
+The goal is to introduce modifications that are deeply rooted in new C# code, going beyond surface-level changes to add meaningful functionality.<br>
 The enhancements are designed to not only enrich the simulation but also to demonstrate the practical application of advanced coding skills within a virtual environment.
     <br />
     <a href="https://github.com/sebolsita/VR_MSc_3_Forest_Fire__Game_VR"><strong>Explore the files »</strong></a>
     <br />
     <br />
-    <a href="https://youtu.be/QzwF29jv5mw">View Demo</a>
+    <a href="https://www.youtube.com/watch?v=I9UqnSDR7mo">View Demo</a>
     ·
     <a href="https://github.com/sebolsita/VR_MSc_3_Forest_Fire__Game_VR/issues">Report Bug</a>
     ·
@@ -70,35 +70,29 @@ The enhancements are designed to not only enrich the simulation but also to demo
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/sebolsita/Assignment_3_ForestFire_Seb_Version_/assets/146569314/ec3a6b62-e2f4-4a19-949e-9de81b3bc2ed)
 
 
 ### Assignment Objectives
 
-- **Achieve Realism**: Create a Unity-based 3D environment that significantly enhances UX and user immersion through:
-  - **Engaging Scene Content**: The scene can be as ordinary as a waiting room but must captivate users through its realism.
-  - **Thoughtful Design**: Incorporate lighting and sound effects designed to achieve a high level of realism within a performance-optimized application.
+- **Functional Enhancements**: Develop new functionalities within the Forest Fire simulation by:
+  - **New C# Code**: Implementing significant modifications driven by original C# programming.
+  - **Beyond Graphics and Effects**: Ensuring these additions offer more than just aesthetic improvements, contributing to the simulation's interactivity and complexity.
 
-- **Incorporate Interactive Elements**:
-  - **Non-Player Characters (NPCs)**: Populate the scene with NPCs to add life and interaction.
-  - **A/V Objects**: Use interactable audio/visual objects, such as light switches or radios, to enhance realism.
-  - **Directional Sound and Reverb Zones**: Implement sound strategically to mimic real-world auditory experiences.
-  - **Realistic Baked Lighting**: Utilize baked lighting techniques for a more natural and immersive environment.
+- **Fork and GitHub Submission**:
+  - **Version Control**: Create a fork of the existing codebase, using the feature or creating your own git repository for the project.
+  - **Build and Share**: Perform a PC build of the modified simulation, and submit it to GitHub, adhering to the standard release process.
 
-- **Use of Physically Scanned Items**: 
-  - Integrate at least one physically scanned item into the scene, whether as an NPC or another object, to further authenticity.
+- **Coding Interview**: 
+  - **Code Review**: Prepare for a coding interview that will delve into the specifics of the modifications, emphasizing the C# development aspect.
 
-- **Demonstration Video**: 
-  - Produce a video showcasing the scene and the implemented audio/visual effects.
+- **Video Demonstration**:
+  - **In-Game Footage**: Capture and compile a short in-game video that highlights the new modifications to the Forest Fire simulation.
 
-- **Research and Documentation**:
+- **PC Build Requirement**:
+  - **Platform-Specific**: Submit only a PC build for this assignment.
 
-  - **2 Page Report**: Conduct research and write a report focusing on one of the following areas:
-    - Current or future graphics techniques in VR rendering.
-    - The use of sound in immersive applications.
-    - Performance and optimization techniques in VR applications.
 
-  - **1 Page Reflection**: Reflect on the project, detailing the development process, challenges faced, and lessons learned.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -107,7 +101,6 @@ The enhancements are designed to not only enrich the simulation but also to demo
 ### Built With
 
 * [![Unity][Unity]][Unity-url]
-* [![Blender][Blender]][Blender-url]
 * [![C#][C#]][C#-url]
 * [![VisualStudio][VisualStudio]][VisualStudio-url]
 * [![Vegas][Vegas]][Vegas-url]
@@ -124,7 +117,7 @@ The enhancements are designed to not only enrich the simulation but also to demo
 ### Windows Instructions
 
 1. **Locate the Downloaded File**: Navigate to your `Downloads` folder or the location where you saved the downloaded `.exe` file.
-2. **Launch the Application**: Double-click on `Swansea Railway Station.exe` to start the application.
+2. **Launch the Application**: Double-click on `Forest Fire.exe` to start the application.
 
 #### Open the Application in Your VR Headset
 
@@ -161,7 +154,7 @@ To install and run applications not available on the Oculus Store, you can use S
    - Put on your Oculus Quest headset.
    - Navigate to the 'Library' from the bottom menu.
    - Select the 'Unknown Sources' section to see all apps installed outside the Oculus Store. 
-   - Find and select the application (e.g., `Swansea Railway Station`) to start it.
+   - Find and select the application (e.g., `Forest Fire`) to start it.
 
 Remember, applications installed through SideQuest or directly via APK may not appear in your regular Oculus Quest library. Always check the 'Unknown Sources' list to find and run these apps.
 
@@ -174,26 +167,48 @@ Remember, applications installed through SideQuest or directly via APK may not a
 <!-- USAGE EXAMPLES -->
 ## Features
 
-Space to show useful examples of how a project can be used. Additional screenshots, code examples and demos etc. Link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+- **Player**
+  - HP system
+  - Score system
+- **UI**
+  - On the left hand map
+  - It shows current state of the forest cells
+  - Score, HP, time passed
+  - % of the forest burned etc.
+- **Hands**
+  - Player has hands, fingers are animated
+- **Gun**
+  - Shoots bullet that interact with environment
+- **NPC**
+  - Follow's player and avoids obstacles
+  - Is animated 
+  - Attacks player
+  - Can be shot at
+- **Environment**
+  - Smoke symulation depending on the % of the forest burned
+  - Music changing accordingly
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- ROADMAP -->
-## Roadmap
+## Roadmap for possible updates
 
 - [ ] Optimize the environment so it can run on the standalone smoothly
-- [ ] Add NPC's
-   - [ ] ChatGPT dialogue system?
+- [ ] Fix behaviour of current antagonist
+- [ ] Add second mode where the player becomes the antagonist
+- [ ] Add more functionality to the gun (reloading etc.)
+- [ ] Add extinguisher 
+- [ ] Add more NPC's
+   - [ ] Animals
+   - [ ] Police and firefighters
 - [ ] Add interactive elements to the scene
-    - [ ] Ticket gates, shops, etc.
-    - [ ] Working ticket machine?
-- [ ] Add more trains/traffic
-- [ ] Add terrain to the route using Google Maps plugin
-- [ ] Create textures to make the scene more realistic
+    - [ ] Perks like ammo or health
+    - [ ] Flashlight
+    - [ ] More guns
+- [ ] Finish score system
+- [ ] Enchance the graphics
 - [ ] Work on reflections and lighting
       
 See the [open issues](https://github.com/sebolsita/VR_MSc_3_Forest_Fire__Game_VR/issues) for a full list of proposed features (and known issues).
@@ -227,21 +242,20 @@ Project Link: [https://github.com/sebolsita/VR_MSc_3_Forest_Fire__Game_VR/](http
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Metro Bench Model - Wille Evensson (@Wevensson) ](inTheProject)
-* [Realistic Fences Pack - WhiteXopc](inTheProject)
-* [Station -  Comicaroid (@yuuuusukeeee)]()
-* [Animated Ticket Gate - €r!c (@ericdavis)]()
-* [Concrete Modern Fence - egorshevelkovv]()
-* [Buffer Stop - LorenzS]()
-* [Train - Class 150 DMU Transport for Wales - timblewee]()
-* [Train - GWR Green livery Class 43 HST - timblewee]()
-* [Mark 3 Carriage Std Open GWR Green - timblewee]()
-* [Metro Card Machine - johhny3D]()
-* [fluorescent lamp - valentin321]()
-* [Rolling Shutter - Origicube]()
-* [Discarded Monitor - Kish San (@kishsan)]()
-* [Iron Fence - Thunder (@thunderpwn)]()
-* [Mini Market - Elbolillo (@Elbolilloduro)]()
+* [Swansea-University-MSc-VR/Forest-Fire](https://github.com/Swansea-University-MSc-VR/Forest-Fire)
+* [War FX Particles - Unity Asset Store]()
+* [Flamer model - Unity Asset Store]()
+* [Modern Guns: Handgun - Unity Asset Store)]()
+* [flame_thrower_bb_loop.wav - deleted_user_13668154](https://freesound.org/people/deleted_user_13668154/sounds/574524/)
+* [8 Bit Flame or Lava.wav - silver887](https://freesound.org/people/silver887/sounds/543993/)
+* [Weird ambience noise 3 - dotY21](https://freesound.org/people/dotY21/sounds/518478/)
+* [GRUNT.wav - ThePig01](https://freesound.org/people/ThePig01/sounds/338226/)
+* [Cthulhu growl.wav - cylon8472](https://freesound.org/people/cylon8472/sounds/71893/)
+* [Hitmarker Sound Effect.mp3 - aruscio28](https://freesound.org/people/aruscio28/sounds/464882/)
+* [Pain Sound in Mask - Hoggington](https://freesound.org/people/Hoggington/sounds/356632/)
+* [Grunting In Gas Mask - Hoggington](https://freesound.org/people/Hoggington/sounds/356633/)
+* [Abandoned Temple Vocal Dark Fantasy Thriller Atmosphere - szegvari](https://freesound.org/people/szegvari/sounds/433083/)
+* [forest_ambient_01_loop.wav - rolandasb](https://freesound.org/people/rolandasb/sounds/346080/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -265,7 +279,7 @@ Project Link: [https://github.com/sebolsita/VR_MSc_3_Forest_Fire__Game_VR/](http
 [linkedinCompany-url]: https://www.linkedin.com/company/starskyproductions/
 [website]: https://img.shields.io/badge/website-Star--Sky.co.uk-blue?style=for-the-badge&logo=Microsoft%20Edge&logoColor=White
 [website-url]: https://star-sky.co.uk
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: https://github.com/sebolsita/Assignment_3_ForestFire_Seb_Version_/assets/146569314/ec3a6b62-e2f4-4a19-949e-9de81b3bc2ed
 [Unity]: https://img.shields.io/badge/Unity-darkgray?style=for-the-badge&logo=Unity
 [Unity-url]: https://unity.com/
 [Blender]: https://img.shields.io/badge/Blender-black?style=for-the-badge&logo=Blender
